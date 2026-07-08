@@ -8,3 +8,9 @@ wheels/
 
 # Virtual environments
 .venv
+
+.env
+logs
+archive
+
+generated_report/
