@@ -7,7 +7,14 @@ from utils.config_loader import load_config
 from langchain_google_genai import GoogleGenerativeAIEmbeddings, ChatGoogleGenerativeAI
 from langchain_openai import ChatOpenAI
 from langchain_groq import ChatGroq
-from logger import GLOBAL_LOGGER as log
+#from logger import GLOBAL_LOGGER as log
+# TO THIS:
+# USE THIS INSTEAD:
+from logger.custom_logger import CustomLogger
+
+# Initialize it inside your script
+log = CustomLogger().get_logger(__file__)
+
 from exception.custom_exception import ResearchAnalystException
 
 

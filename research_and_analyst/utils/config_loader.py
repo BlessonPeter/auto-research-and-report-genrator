@@ -2,7 +2,16 @@ import os
 import yaml
 import json
 from pathlib import Path
-from logger import GLOBAL_LOGGER as log
+#from logger import GLOBAL_LOGGER as log
+# TO THIS:
+#from logger.custom_logger import GLOBAL_LOGGER as log
+# USE THIS INSTEAD:
+from logger.custom_logger import CustomLogger
+
+# Initialize it inside your script
+log = CustomLogger().get_logger(__file__)
+
+
 from exception.custom_exception import ResearchAnalystException
 
 
@@ -10,7 +19,7 @@ def _project_root() -> Path:
     """
     Determine the absolute path of the project root directory.
     Example:
-        /Users/sunny/automated-research-report-generation/research_and_analyst
+        /Users/users/automated-research-report-generation/research_and_analyst
     """
     return Path(__file__).resolve().parents[1]
 
