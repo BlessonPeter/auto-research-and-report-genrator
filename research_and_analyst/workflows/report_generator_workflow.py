@@ -34,6 +34,26 @@ from research_and_analyst.prompt_lib.prompt_locator import (
 from research_and_analyst.logger import GLOBAL_LOGGER
 from research_and_analyst.exception.custom_exception import ResearchAnalystException
 
+#--------------------------------------------
+from langchain_groq import ChatGroq
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+
+
+report_llm = ChatGroq(
+    model="openai/gpt-oss-120b",
+    api_key=os.getenv("GROQ_API_KEY"),
+    temperature=0)
+
+#report = report_llm.invoke([
+   # SystemMessage(content=system_prompt),
+    #HumanMessage(content=report_context)
+#])
+
+#--------------------------------------------
 
 class AutonomousReportGenerator:
     """
@@ -44,7 +64,7 @@ class AutonomousReportGenerator:
         self.llm = llm
         self.memory = MemorySaver()
         self.tavily_search = TavilySearchResults(
-            tavily_api_key="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"
+            tavily_api_key="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"
         )
         self.logger = GLOBAL_LOGGER.bind(module="AutonomousReportGenerator")
 
@@ -92,7 +112,7 @@ class AutonomousReportGenerator:
                 sections = ["No sections generated — please verify interview stage."]
             self.logger.info("Writing report", topic=topic)
             system_prompt = REPORT_WRITER_INSTRUCTIONS.render(topic=topic)
-            report = self.llm.invoke([
+            report = report_llm.invoke([
                 SystemMessage(content=system_prompt),
                 HumanMessage(content="\n\n".join(sections))
             ])
@@ -113,7 +133,7 @@ class AutonomousReportGenerator:
             system_prompt = INTRO_CONCLUSION_INSTRUCTIONS.render(
                 topic=topic, formatted_str_sections=formatted_str_sections
             )
-            intro = self.llm.invoke([
+            intro = report_llm.invoke([
                 SystemMessage(content=system_prompt),
                 HumanMessage(content="Write the report introduction")
             ])
@@ -134,7 +154,7 @@ class AutonomousReportGenerator:
             system_prompt = INTRO_CONCLUSION_INSTRUCTIONS.render(
                 topic=topic, formatted_str_sections=formatted_str_sections
             )
-            conclusion = self.llm.invoke([
+            conclusion = report_llm.invoke([
                 SystemMessage(content=system_prompt),
                 HumanMessage(content="Write the report conclusion")
             ])
@@ -318,7 +338,7 @@ class AutonomousReportGenerator:
                         "conduct_interview",
                         {
                             "analyst": analyst,
-                            "messages": [HumanMessage(content=f"So, let's discuss about {topic}.")],
+                            "messages": [HumanMessage(content=f"discuss about {topic}.")],
                             "max_num_turns": 2,
                             "context": [],
                             "interview": "",
@@ -368,7 +388,7 @@ if __name__ == "__main__":
         thread = {"configurable": {"thread_id": "1"}}
         reporter.logger.info("Starting report generation pipeline", topic=topic)
 
-        for _ in graph.stream({"topic": topic, "max_analysts": 3}, thread, stream_mode="values"):
+        for _ in graph.stream({"topic": topic, "max_analysts": 2}, thread, stream_mode="values"):
             pass
 
         state = graph.get_state(thread)

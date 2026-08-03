@@ -1,7 +1,7 @@
 # ==============================================================================
 # 📘 Jinja2-based Prompt Templates for Autonomous Research Report Generator
 # ==============================================================================
-# Author: Sunny Savita
+# Author: Blesson Peter
 # Description: These prompt templates use Jinja2 syntax ({{ ... }}, {% if ... %})
 # to dynamically render variables and handle missing values gracefully.
 # ==============================================================================

@@ -1,5 +1,5 @@
 def main():
-    print("Hello from auto-research-and-report-genrator!")
+    print("Hello from automated-research-report-generation!")
 
 
 if __name__ == "__main__":

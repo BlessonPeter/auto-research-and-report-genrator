@@ -70,15 +70,16 @@ class InterviewGraphBuilder:
             search_query = structure_llm.invoke([SystemMessage(content=search_prompt)] + state["messages"])
 
             self.logger.info("Performing Tavily web search", query=search_query.search_query)
+           
             search_docs = self.tavily_search.invoke(search_query.search_query)
-
+            
             if not search_docs:
                 self.logger.warning("No search results found")
                 return {"context": ["[No search results found.]"]}
 
             formatted = "\n\n---\n\n".join(
                 [
-                    f'<Document href="{doc.get("url", "#")}"/>\n{doc.get("content", "")}\n</Document>'
+                    f'<Document href="{doc.get("url", "#")}"/>\n{doc.get("content", "")[:800]}\n</Document>'
                     for doc in search_docs
                 ]
             )

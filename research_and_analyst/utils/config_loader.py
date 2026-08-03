@@ -2,14 +2,14 @@ import os
 import yaml
 import json
 from pathlib import Path
-#from logger import GLOBAL_LOGGER as log
+from logger import GLOBAL_LOGGER as log
 # TO THIS:
 #from logger.custom_logger import GLOBAL_LOGGER as log
 # USE THIS INSTEAD:
-from logger.custom_logger import CustomLogger
+#from logger.custom_logger import CustomLogger
 
 # Initialize it inside your script
-log = CustomLogger().get_logger(__file__)
+#log = CustomLogger().get_logger(__file__)
 
 
 from exception.custom_exception import ResearchAnalystException
