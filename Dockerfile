@@ -1,5 +1,5 @@
 # Multi-stage build for Research Report Generation System
-FROM python:3.11-slim AS builder
+FROM python:3.12-slim AS builder
 
 WORKDIR /app
 
@@ -11,6 +11,7 @@ RUN apt-get update && apt-get install -y \
 
 # Copy project files needed for pip install
 COPY requirements.txt .
+COPY requirements-docker.txt .
 COPY pyproject.toml .
 COPY README.md .
 # Create package directory structure for editable install
@@ -18,10 +19,10 @@ RUN mkdir -p research_and_analyst
 COPY research_and_analyst/__init__.py research_and_analyst/
 
 # Install Python dependencies
-RUN pip install --no-cache-dir --user -r requirements.txt
+RUN pip install --no-cache-dir --user -r requirements-docker.txt
 
 # Final stage
-FROM python:3.11-slim
+FROM python:3.12-slim
 
 WORKDIR /app
 
