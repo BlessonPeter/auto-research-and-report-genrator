@@ -37,20 +37,20 @@ pipeline {
         CONTAINER_ENV = 'research-report-env'
     }
 
-   // stages {
-   //     stage('Checkout') {
- //           steps {
-   //             script {
-     //               echo 'Checking out code from Git...'
-   //                 cleanWs()
-  //                  checkout([
+    stages {
+//        stage('Checkout') {
+//            steps {
+//                script {
+//                    echo 'Checking out code from Git...'
+//                    cleanWs()
+//                    checkout([
 //                        $class: 'GitSCM',
- //                       branches: [[name: '*/main']],
- //                       userRemoteConfigs: [[url: 'https://github.com/BlessonPeter/auto-research-and-report-genrator.git']]
- //                   ])
- //               }
- //           }
-  //      }
+//                        branches: [[name: '*/main']],
+//                        userRemoteConfigs: [[url: 'https://github.com/BlessonPeter/auto-research-and-report-genrator.git']]
+//                    ])
+//                }
+//            }
+//        }
 
         stage('Setup Python Environment') {
             steps {
@@ -223,3 +223,4 @@ pipeline {
             }
         }
     }
+}
