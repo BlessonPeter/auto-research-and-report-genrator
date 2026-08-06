@@ -19,7 +19,11 @@ RUN mkdir -p research_and_analyst
 COPY research_and_analyst/__init__.py research_and_analyst/
 
 # Install Python dependencies
-RUN pip install --no-cache-dir --user -r requirements-docker.txt
+RUN pip install \
+    --default-timeout=300 \
+    --no-cache-dir \
+    --user \
+    -r requirements-docker.txt
 
 # Final stage
 FROM python:3.12-slim
